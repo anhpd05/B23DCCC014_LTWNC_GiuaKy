@@ -9,10 +9,10 @@ type StateWithBooks = { books: BooksState };
 export const borrowLimitMiddleware: Middleware<object, StateWithBooks> =
   (api) => (next) => (action) => {
     if (borrowBook.match(action)) {
-      const { borrowedIds } = api.getState().books;
+      const { loans } = api.getState().books;
       if (
-        !borrowedIds.includes(action.payload) &&
-        borrowedIds.length >= MAX_BORROW
+        !loans.some((loan) => loan.bookId === action.payload.bookId) &&
+        loans.length >= MAX_BORROW
       ) {
         api.dispatch(limitExceeded());
         return action; // chặn: không gọi next

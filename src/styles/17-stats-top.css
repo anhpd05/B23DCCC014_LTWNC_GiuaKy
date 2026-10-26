@@ -1,0 +1,76 @@
+/* ---------- Top 5 (stats) ---------- */
+.card--top {
+  gap: 4px;
+}
+
+.card--top .card__head {
+  padding-bottom: 8px;
+}
+
+.top-row {
+  display: grid;
+  grid-template-columns: 24px 34px minmax(0, 1fr) minmax(80px, 180px) 44px;
+  gap: 14px;
+  align-items: center;
+  width: 100%;
+  padding: 10px 8px;
+  border: none;
+  border-top: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+}
+
+.top-row:hover {
+  background: var(--side);
+}
+
+.top-row__rank {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.top-row__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.top-row__title {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top-row__text .muted {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top-row__bar {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.top-row__bar span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--hue);
+  transition: width 0.3s ease;
+}
+
+.top-row__count {
+  font-size: 13px;
+  text-align: right;
+}

@@ -2,7 +2,7 @@ import { createSafeContext } from '../../shared/createSafeContext';
 
 export type Theme = 'light' | 'dark';
 
-export interface ThemeContextValue {
+interface ThemeContextValue {
   theme: Theme;
   toggleTheme: () => void;
 }

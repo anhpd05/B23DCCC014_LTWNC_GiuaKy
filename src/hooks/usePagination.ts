@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { PAGE_SIZE } from '../constants/library';
 
-export interface PaginationResult<T> {
+interface PaginationResult<T> {
   pageItems: T[];
   totalPages: number;
   currentPage: number;

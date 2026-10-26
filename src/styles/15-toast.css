@@ -1,0 +1,61 @@
+/* ---------- Toast ---------- */
+.toast-host {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 50;
+  max-width: min(420px, calc(100vw - 48px));
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px 12px 16px;
+  border-radius: 14px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  pointer-events: auto;
+  animation: toast-in 0.2s ease both;
+}
+
+.toast__dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--c3);
+}
+
+.toast__dot[data-kind='warn'] {
+  background: var(--accent);
+}
+
+.toast__dot[data-kind='back'] {
+  background: var(--c1);
+}
+
+.toast__msg {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast__undo {
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--bg);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.toast__undo:hover {
+  background: var(--bg);
+  color: var(--ink);
+}

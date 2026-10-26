@@ -1,0 +1,39 @@
+/* ---------- Featured ---------- */
+.featured {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.featured__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.featured__head h2 {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.featured__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.featured__card {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  animation: fade-in-up 0.3s both;
+}
+
+.featured__card:hover {
+  border-color: var(--ink);
+}

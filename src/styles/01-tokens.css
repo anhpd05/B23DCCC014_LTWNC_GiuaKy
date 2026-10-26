@@ -1,0 +1,47 @@
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #f7f6f2;
+  --side: #efede6;
+  --surface: #ffffff;
+  --ink: #1c1a17;
+  --muted: #6f685d;
+  --panel: #e6e2d8;
+  --line: #e2ddd1;
+  --accent: #b8321f;
+  --on-accent: #ffffff;
+  --c1: #2f5d8a;
+  --c2: #a0661c;
+  --c3: #3f6e45;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  --font-serif: 'Literata', Georgia, serif;
+  --font-sans: 'Mulish', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #161513;
+  --side: #1b1a17;
+  --surface: #201f1b;
+  --ink: #ece7dc;
+  --muted: #9a9384;
+  --panel: #2c2a25;
+  --line: #34312b;
+  --accent: #e0614b;
+  --on-accent: #161513;
+  --c1: #8fb3d9;
+  --c2: #d9ad6f;
+  --c3: #93c299;
+  color-scheme: dark;
+}
+
+/* Màu thể loại: phần tử nào có data-cat đều nhận --hue */
+[data-cat='CNTT'] {
+  --hue: var(--c1);
+}
+[data-cat='Kinh tế'] {
+  --hue: var(--c2);
+}
+[data-cat='Ngoại ngữ'] {
+  --hue: var(--c3);
+}

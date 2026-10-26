@@ -2,24 +2,25 @@ import { createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolki
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createAppAsyncThunk } from '../../app/hooks';
 import { borrowBookApi, getBooks, returnBookApi } from '../../api/booksApi';
+import { DAY_MS, LOAN_DAYS } from '../../constants/library';
 import type { NoticeCode } from '../../constants/messages';
 import { isApiSuccess } from '../../types/book';
-import type { Book, BookId } from '../../types/book';
+import type { Book, BookId, Loan } from '../../types/book';
 
-export type LoadStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
+type LoadStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export interface BooksState {
   items: Book[];
-  borrowedIds: BookId[];
+  loans: Loan[];
   pendingIds: BookId[];
   status: LoadStatus;
   error: string | null;
   warning: NoticeCode | null;
 }
 
-export const initialState: BooksState = {
+const initialState: BooksState = {
   items: [],
-  borrowedIds: [],
+  loans: [],
   pendingIds: [],
   status: 'idle',
   error: null,
@@ -66,18 +67,23 @@ const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    borrowBook(state, action: PayloadAction<BookId>) {
-      const book = state.items.find((item) => item.id === action.payload);
-      if (!book || book.available <= 0 || state.borrowedIds.includes(book.id)) return;
-      book.available -= 1;
-      state.borrowedIds.push(book.id);
-      state.warning = null;
+    borrowBook: {
+      // Hạn trả tính ở đây (action creator) để reducer vẫn là hàm thuần.
+      prepare: (bookId: BookId) => ({ payload: { bookId, dueAt: Date.now() + LOAN_DAYS * DAY_MS } }),
+      reducer(state, action: PayloadAction<Loan>) {
+        const { bookId, dueAt } = action.payload;
+        const book = state.items.find((item) => item.id === bookId);
+        if (!book || book.available <= 0 || state.loans.some((loan) => loan.bookId === bookId)) return;
+        book.available -= 1;
+        state.loans.push({ bookId, dueAt });
+        state.warning = null;
+      },
     },
     returnBook(state, action: PayloadAction<BookId>) {
-      if (!state.borrowedIds.includes(action.payload)) return;
+      if (!state.loans.some((loan) => loan.bookId === action.payload)) return;
       const book = state.items.find((item) => item.id === action.payload);
       if (book) book.available += 1;
-      state.borrowedIds = state.borrowedIds.filter((id) => id !== action.payload);
+      state.loans = state.loans.filter((loan) => loan.bookId !== action.payload);
       state.warning = null;
     },
     limitExceeded(state) {

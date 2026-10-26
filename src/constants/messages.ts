@@ -2,8 +2,15 @@ import { MAX_BORROW } from "./library";
 
 export type NoticeCode = "BORROW_LIMIT_EXCEEDED" | "REQUEST_FAILED";
 
-// Redux state chỉ giữ mã câu chữ hiển thị tra ở đây.
 export const NOTICE_MESSAGES: Record<NoticeCode, string> = {
-  BORROW_LIMIT_EXCEEDED: `Bạn chỉ được mượn tối đa ${MAX_BORROW} cuốn cùng lúc`,
+  BORROW_LIMIT_EXCEEDED: `Bạn đã mượn đủ ${MAX_BORROW} cuốn. Hãy trả bớt 1 cuốn trước khi mượn thêm.`,
   REQUEST_FAILED: "Thao tác không thành công. Vui lòng thử lại.",
+};
+
+export const TOAST_MESSAGES = {
+  borrowed: (title: string, due: string) =>
+    `Đã mượn “${title}” · hạn trả ${due}`,
+  returned: (title: string) => `Đã trả “${title}”`,
+  limitReached: `Không thể mượn thêm — đã đủ ${MAX_BORROW} cuốn`,
+  notifyOn: "Sẽ thông báo khi sách được trả lại",
 };

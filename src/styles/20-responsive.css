@@ -1,0 +1,90 @@
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .sidebar {
+    flex: 1 1 100%;
+    min-height: auto;
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 16px 24px;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand {
+    flex: 1 1 100%;
+  }
+
+  .nav {
+    flex: 1 1 200px;
+  }
+
+  .shelf {
+    flex: 1 1 260px;
+  }
+
+  .sidebar__foot {
+    flex: 1 1 100%;
+    margin-top: 0;
+  }
+
+  .user {
+    display: none;
+  }
+
+  .main {
+    padding: 20px 16px 48px;
+  }
+}
+
+@media (max-width: 720px) {
+  .book-head {
+    display: none;
+  }
+
+  .book {
+    grid-template-columns: 24px minmax(0, 1fr) auto;
+    grid-template-areas:
+      'no main main'
+      '. cat copies'
+      '. action action';
+    row-gap: 10px;
+  }
+
+  .book__no {
+    grid-area: no;
+  }
+  .book__lead {
+    grid-area: main;
+  }
+  .book__cat {
+    grid-area: cat;
+  }
+  .book__copies {
+    grid-area: copies;
+    align-items: flex-end;
+  }
+  .book__action {
+    grid-area: action;
+  }
+
+  .book__action .btn {
+    width: 100%;
+  }
+
+  .skeleton-row {
+    grid-template-columns: 24px minmax(0, 1fr) 72px;
+  }
+  .skeleton--btn {
+    display: none;
+  }
+
+  .toast-host {
+    right: 16px;
+    left: 16px;
+    bottom: 16px;
+    max-width: none;
+  }
+}
