@@ -6,7 +6,7 @@ export function createSafeContext<T>(name: string) {
   function useCtx(): T {
     const value = useContext(Ctx);
     if (value === null) {
-      throw new Error(`use${name} phải được dùng bên trong <${name}>`);
+      throw new Error(`use${name} phải được dùng bên trong <${name}Provider>`);
     }
     return value;
   }
