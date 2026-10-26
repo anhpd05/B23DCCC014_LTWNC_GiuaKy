@@ -1,4 +1,5 @@
-import type { ApiResult, Book } from '../types/book';
+import { API_DELAY_MS, MUTATION_DELAY_MS } from '../constants/library';
+import type { ApiResult, Book, BookId } from '../types/book';
 
 const MOCK_BOOKS: Book[] = [
   { id: 'b1', title: 'Clean Code', author: 'Robert C. Martin', category: 'CNTT', year: 2008, available: 3 },
@@ -15,14 +16,25 @@ const MOCK_BOOKS: Book[] = [
   { id: 'b12', title: 'Giáo trình Hán ngữ', author: 'Dương Ký Châu', category: 'Ngoại ngữ', year: 2006, available: 4 },
 ];
 
-export function getBooks(shouldFail = false, delay = 500): Promise<ApiResult<Book[]>> {
+function delay<T>(value: T, ms: number): Promise<T> {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(
-        shouldFail
-          ? { ok: false, error: 'Không tải được danh sách sách. Vui lòng thử lại.' }
-          : { ok: true, data: MOCK_BOOKS.map((book) => ({ ...book })) },
-      );
-    }, delay);
+    setTimeout(() => resolve(value), ms);
   });
+}
+
+export function getBooks(shouldFail = false, ms = API_DELAY_MS): Promise<ApiResult<Book[]>> {
+  return delay(
+    shouldFail
+      ? { ok: false, error: 'Không tải được danh sách sách. Vui lòng thử lại.' }
+      : { ok: true, data: MOCK_BOOKS.map((book) => ({ ...book })) },
+    ms,
+  );
+}
+
+export function borrowBookApi(id: BookId, shouldFail = false, ms = MUTATION_DELAY_MS): Promise<ApiResult<BookId>> {
+  return delay(shouldFail ? { ok: false, error: 'Không thể mượn sách lúc này.' } : { ok: true, data: id }, ms);
+}
+
+export function returnBookApi(id: BookId, shouldFail = false, ms = MUTATION_DELAY_MS): Promise<ApiResult<BookId>> {
+  return delay(shouldFail ? { ok: false, error: 'Không thể trả sách lúc này.' } : { ok: true, data: id }, ms);
 }
